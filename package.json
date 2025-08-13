@@ -1,0 +1,26 @@
+{
+  "name": "fastcar",
+  "version": "1.0.0",
+  "description": "projeto para desenvolvimento pessoal",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node setup.js",
+    "dev": "nodemon setup.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Marbarret/fastCar_.git"
+  },
+  "author": "Marcylene Barreto",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Marbarret/fastCar_/issues"
+  },
+  "homepage": "https://github.com/Marbarret/fastCar_#readme",
+  "dependencies": {
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "mongodb": "^6.18.0"
+  }
+}
