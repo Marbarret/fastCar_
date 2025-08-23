@@ -14,7 +14,7 @@ async function getItemById(req, res) {
   try {
     const item = await itemService.getItemById(req.params.id);
     if (!item) {
-        return res.status(404).json({ error: "Item not found" });
+      return res.status(404).json({ error: "Item not found" });
     }
     res.status(200).json(item);
   } catch (error) {
@@ -24,15 +24,20 @@ async function getItemById(req, res) {
 }
 
 async function createItem(req, res) {
-  return toHttp(res, async () => {
+  try {
     const id = await itemService.createItem(req.body);
     res.status(201).json({ id });
-  });
+  } catch {
+    console.error("Erro creating item:", error);
+    res.status(error.status || 500).json({ error: "Erro ao criar item" });
+  }
 }
 
 async function updateItem(req, res) {
   try {
-    await itemService.updateItem(req.params.id, req.body);
+    const idItem = req.params.id;
+    console.log("ID do item", idItem);
+    await itemService.updateItem(idItem, req.body);
     res.status(204).send();
   } catch (error) {
     console.error("Error updating item:", error);

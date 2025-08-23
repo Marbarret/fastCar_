@@ -1,5 +1,5 @@
 const { getConnectionToDB } = require("../db");
-const { DB_NAME, COLLECTIONS } = require("../utils/constants");
+const { COLLECTIONS } = require("../utils/constants");
 const { ObjectId } = require("mongodb");
 
 async function getAllItems() {
@@ -8,7 +8,7 @@ async function getAllItems() {
   return items;
 }
 
-async function createItem(dbClient, itemData) {
+async function createItem(itemData) {
   if (!itemData || typeof itemData !== "object" || Array.isArray(itemData)) {
     const err = new Error("Invalid payload");
     err.status = 400;
@@ -25,7 +25,7 @@ async function getItemById(itemId) {
   const db = getConnectionToDB();
   const item = await db
     .collection(COLLECTIONS.ITEMS)
-    .findOne({ _id: ObjectId(itemId) });
+    .findOne({ _id: new ObjectId(itemId) });
   return item;
 }
 
@@ -33,12 +33,14 @@ async function updateItem(itemId, updateData) {
   const db = getConnectionToDB();
   await db
     .collection(COLLECTIONS.ITEMS)
-    .updateOne({ _id: ObjectId(itemId) }, { $set: updateData });
+    .updateOne({ _id: new ObjectId(itemId) }, { $set: updateData });
 }
 
 async function deleteItem(itemId) {
   const db = getConnectionToDB();
-  await db.collection(COLLECTIONS.ITEMS).deleteOne({ _id: ObjectId(itemId) });
+  await db
+    .collection(COLLECTIONS.ITEMS)
+    .deleteOne({ _id: new ObjectId(itemId) });
 }
 
 module.exports = {
