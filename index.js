@@ -7,7 +7,5 @@ app.use(express.urlencoded({ extended: false }));
 const itemRoute = require("./src/routes/itemRoute");
 
 app.use("/items", itemRoute);
-app.get('/', (_req, res) => res.send('API online'));
-
 
 module.exports = app;
